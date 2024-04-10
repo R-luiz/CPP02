@@ -35,3 +35,8 @@ Fixed &Fixed::operator=(const Fixed &fixed)
 	this->integer = fixed.getRawBits();
 	return *this;
 }
+
+Fixed::Fixed(const int integer) : integer(integer << Fixed::fractional)
+{
+	std::cout << "Int constructor called" << std::endl;
+}
