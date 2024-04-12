@@ -1,6 +1,8 @@
 
 #pragma once
 
+
+#include <cmath>
 #include <iostream>
 #include <string>
 
@@ -16,6 +18,7 @@ class Fixed
 		Fixed(const Fixed &fixed);
 		~Fixed();
 		Fixed &operator=(const Fixed &fixed);
+		friend std::ostream &operator<<(std::ostream &out, const Fixed &fixed);
 		int getRawBits(void) const;
 		void setRawBits(int const raw);
 		float toFloat(void) const;

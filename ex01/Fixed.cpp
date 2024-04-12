@@ -40,3 +40,24 @@ Fixed::Fixed(const int integer) : integer(integer << Fixed::fractional)
 {
 	std::cout << "Int constructor called" << std::endl;
 }
+
+Fixed::Fixed(const float floating) : integer(roundf(floating * (1 << Fixed::fractional)))
+{
+	std::cout << "Float constructor called" << std::endl;
+}
+
+float Fixed::toFloat(void) const
+{
+	return (float)this->integer / (1 << Fixed::fractional);
+}
+
+int Fixed::toInt(void) const
+{
+	return this->integer >> Fixed::fractional;
+}
+
+std::ostream &operator<<(std::ostream &out, const Fixed &fixed)
+{
+	out << fixed.toFloat();
+	return out;
+}
