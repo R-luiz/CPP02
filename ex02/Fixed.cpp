@@ -48,7 +48,7 @@ Fixed::Fixed(const float floating) : integer(roundf(floating * (1 << Fixed::frac
 
 float Fixed::toFloat(void) const
 {
-	return (float)(this->integer >> Fixed::fractional);
+	return (float)(this->integer) / (1 << Fixed::fractional);
 }
 
 int Fixed::toInt(void) const
@@ -61,3 +61,100 @@ std::ostream &operator<<(std::ostream &out, const Fixed &fixed)
 	out << fixed.toFloat();
 	return out;
 }
+
+Fixed Fixed::operator+(const Fixed &fixed) const
+{
+	return Fixed(this->toFloat() + fixed.toFloat());
+}
+
+Fixed Fixed::operator-(const Fixed &fixed) const
+{
+	return Fixed(this->toFloat() - fixed.toFloat());
+}
+
+Fixed Fixed::operator*(const Fixed &fixed) const
+{
+	return Fixed(this->toFloat() * fixed.toFloat());
+}
+
+Fixed Fixed::operator/(const Fixed &fixed) const
+{
+	return Fixed(this->toFloat() / fixed.toFloat());
+}
+
+bool Fixed::operator>(const Fixed &fixed) const
+{
+	return this->toFloat() > fixed.toFloat();
+}
+
+bool Fixed::operator<(const Fixed &fixed) const
+{
+	return this->toFloat() < fixed.toFloat();
+}
+
+bool Fixed::operator>=(const Fixed &fixed) const
+{
+	return this->toFloat() >= fixed.toFloat();
+}
+
+bool Fixed::operator<=(const Fixed &fixed) const
+{
+	return this->toFloat() <= fixed.toFloat();
+}
+
+bool Fixed::operator==(const Fixed &fixed) const
+{
+	return this->toFloat() == fixed.toFloat();
+}
+
+bool Fixed::operator!=(const Fixed &fixed) const
+{
+	return this->toFloat() != fixed.toFloat();
+}
+
+Fixed &Fixed::operator++()
+{
+	this->integer++;
+	return *this;
+}
+
+Fixed Fixed::operator++(int)
+{
+	Fixed tmp(*this);
+	operator++();
+	return tmp;
+}
+
+Fixed &Fixed::operator--()
+{
+	this->integer--;
+	return *this;
+}
+
+Fixed Fixed::operator--(int)
+{
+	Fixed tmp(*this);
+	operator--();
+	return tmp;
+}
+
+Fixed &Fixed::min(Fixed &a, Fixed &b)
+{
+	return a < b ? a : b;
+}
+
+const Fixed &Fixed::min(const Fixed &a, const Fixed &b)
+{
+	return a < b ? a : b;
+}
+
+Fixed &Fixed::max(Fixed &a, Fixed &b)
+{
+	return a > b ? a : b;
+}
+
+const Fixed &Fixed::max(const Fixed &a, const Fixed &b)
+{
+	return a > b ? a : b;
+}
+

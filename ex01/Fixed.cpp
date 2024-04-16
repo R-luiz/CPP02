@@ -48,7 +48,7 @@ Fixed::Fixed(const float floating) : integer(roundf(floating * (1 << Fixed::frac
 
 float Fixed::toFloat(void) const
 {
-	return (float)(this->integer >> Fixed::fractional);
+	return (float)(this->integer) / (1 << Fixed::fractional);
 }
 
 int Fixed::toInt(void) const
